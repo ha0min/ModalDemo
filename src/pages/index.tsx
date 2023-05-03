@@ -1,5 +1,5 @@
-import {Button, Col, Modal, Row, Image, Typography, Avatar, Divider, Statistic} from "antd";
-import React, {useState} from "react";
+import {Button, Col, Modal, Row, Image, Typography, Avatar, Divider, Statistic} from 'antd';
+import React, {useState} from 'react';
 import {CloseOutlined} from '@ant-design/icons';
 
 const {Title, Text} = Typography;
@@ -7,7 +7,7 @@ const {Title, Text} = Typography;
 const BlockButton = (props: any) => {
     return (
         <Button
-            style={{height: "56px", borderRadius: "18px"}}
+            style={{height: '56px', borderRadius: '18px'}}
             type={props?.type}
             block={true}
             onClick={props?.onClick}
@@ -29,7 +29,7 @@ const LeftPart = () => {
                 </Col>
             </Row>
             <Row
-                style={{marginBottom: "30px"}}
+                style={{marginBottom: '30px'}}
             >
                 <Col span={24}>
                     <Title level={2}>
@@ -37,25 +37,25 @@ const LeftPart = () => {
                     </Title>
                 </Col>
                 <Col span={24}>
-                    <Text type="secondary">
+                    <Text type='secondary'>
                         You have 1 business day to accept the sale.<br/>
                         If you do not accept, it will be automatically rejected.
                     </Text>
                 </Col>
             </Row>
 
-            <Row justify={"center"} gutter={[12, 10]}>
+            <Row justify={'center'} gutter={[12, 10]}>
                 <Col span={24}>
                     <BlockButton
-                        type={"primary"}
-                        text={"Accept sale"}
+                        type={'primary'}
+                        text={'Accept sale'}
                     />
                 </Col>
 
                 <Col span={24}>
                     <BlockButton
-                        type={"text"}
-                        text={"Reject sale"}
+                        type={'text'}
+                        text={'Reject sale'}
                     />
                 </Col>
             </Row>
@@ -63,10 +63,26 @@ const LeftPart = () => {
     )
 }
 
+const RoundContainer = (props: any) => {
+    const containerStyle = {
+        padding: '20px 14px 20px 14px',
+        margin: '0px 10px',
+        borderRadius: '18px',
+        backgroundColor: props.background || 'transparent'
+    };
+
+    return(
+        <div className="round-container" style={containerStyle}>
+            {props.children}
+        </div>
+    )
+}
 const RightPart = () => {
 
     return (
-        <div>
+        <RoundContainer
+            backgroundColor={"#F6F4F1"}
+        >
             <Row>
                 <Divider/>
             </Row>
@@ -85,75 +101,75 @@ const RightPart = () => {
                 </Col>
                 <Col span={4}>
                     <Avatar
-                        alt={"image"}
-                        shape={"square"}
+                        alt={'image'}
+                        shape={'square'}
                         size={80}
                         draggable={false}
-                        src={"https://getbezel.mo.cloudinary.net/production/32616290-d113-4a7b-9a07-53734b746e0c.png?tx=f_auto,c_limit,w_1080,q_auto"}
+                        src={'https://getbezel.mo.cloudinary.net/production/32616290-d113-4a7b-9a07-53734b746e0c.png?tx=f_auto,c_limit,w_1080,q_auto'}
                     />
                 </Col>
             </Row>
             <Row>
                 <Divider/>
             </Row>
-            <Row justify={"space-between"}>
-                <Col span={12}>
+            <Row justify={'space-between'}>
+                <Col>
                     <Text>
                         Selling Price
                     </Text>
                 </Col>
-                <Col span={12}>
+                <Col>
                     <Text>
-                        $17,945.00
+                        $1777777,945.00
                     </Text>
                 </Col>
             </Row>
-            <Row justify={"space-between"}>
-                <Col span={12}>
+            <Row justify={'space-between'}>
+                <Col>
                     <Text>
                         Level 1 Commision(6.5%)
                     </Text>
                 </Col>
-                <Col span={12}>
+                <Col>
                     <Text>
                         $1,556.75
                     </Text>
                 </Col>
             </Row>
-            <Row justify={"space-between"}>
-                <Col span={12}>
+            <Row justify={'space-between'}>
+                <Col>
                     <Text>
                         Seller fee
                     </Text>
                 </Col>
-                <Col span={12}>
+                <Col>
                     <Statistic
                         prefix={<Text>$</Text>}
                         precision={2}
                         value={15}
-                        valueStyle={{fontSize:"14px"}}
+                        valueStyle={{fontSize:'14px'}}
                     />
                 </Col>
             </Row>
-            <Row justify={"space-between"}>
-                <Col span={12}>
+            <Row justify={'space-between'}>
+                <Col>
                     <Text>
                         Insured Shipping
                     </Text>
                 </Col>
-                <Col span={12}>
+                <Col>
                     <Text>
                         Free
                     </Text>
                 </Col>
             </Row>
-            <Row justify={"space-between"}>
-                <Col span={12}>
+            <Row justify={'space-between'}>
+                <Col>
                     <Text>
                         Bezel authentication
                     </Text>
                 </Col>
-                <Col span={12}>
+                <Col>
                     <Text>
                         Free
                     </Text>
@@ -162,7 +178,7 @@ const RightPart = () => {
             <Row>
                 <Divider/>
             </Row>
-            <Row justify={"space-between"}>
+            <Row justify={'space-around'}>
                 <Col span={12}>
                     <Text>
                         Earinings
@@ -174,7 +190,7 @@ const RightPart = () => {
                     </Text>
                 </Col>
             </Row>
-        </div>
+        </RoundContainer>
     );
 }
 
@@ -198,25 +214,25 @@ export default function Home() {
     return (
         <main
         >
-            <Button type="primary" onClick={showModal}>
+            <Button type='primary' onClick={showModal}>
                 Open Modal with customized button props
             </Button>
             <Modal
                 title={null}
                 footer={null}
-                width={"50%"}
+                width={'64%'}
                 open={open}
                 closable={false}
                 okButtonProps={{disabled: true}}
                 cancelButtonProps={{disabled: true}}
             >
                 <Row
-                    justify={"end"}
+                    justify={'end'}
                 >
                     <Col>
                         <Button
-                            type="text"
-                            shape="circle"
+                            type='text'
+                            shape='circle'
                             icon={<CloseOutlined/>}
                             onClick={(e) => handleCancel(e)}
                         />
