@@ -89,7 +89,36 @@ const Money = (props: {value: number}) => {
     )
 }
 
+interface StatisticRowProps {
+    text: string;
+    value: number;
+    placeholder?: string;
+}
 
+
+
+const StatisticRow = (props: StatisticRowProps) =>{
+    return (
+        <Row justify={'space-between'}>
+            <Col>
+                <Text>
+                    {props.text}
+                </Text>
+            </Col>
+            <Col>
+                {props.value !== 0 ? (
+                    <Money value={props.value} />
+                ) : (
+                    <Text>{props.placeholder}</Text>
+                )}
+            </Col>
+        </Row>
+    )
+}
+
+StatisticRow.defaultProps = {
+    placeholder: "Free",
+};
 
 const RightPart = () => {
 
