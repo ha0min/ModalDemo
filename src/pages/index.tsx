@@ -22,7 +22,7 @@ const LeftPart = () => {
 
 
     return (
-        <div>
+        <RoundContainer>
             <Row>
                 <Col span={24}>
                     <Text>CONGRATS!</Text>
@@ -59,7 +59,7 @@ const LeftPart = () => {
                     />
                 </Col>
             </Row>
-        </div>
+        </RoundContainer>
     )
 }
 
@@ -77,6 +77,20 @@ const RoundContainer = (props: any) => {
         </div>
     )
 }
+
+const Money = (props: {value: number}) => {
+    return(
+        <Statistic
+            prefix={<Text>$</Text>}
+            precision={2}
+            value={props.value}
+            valueStyle={{fontSize:'14px'}}
+        />
+    )
+}
+
+
+
 const RightPart = () => {
 
     return (
