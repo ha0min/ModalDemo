@@ -2,7 +2,7 @@ import {Button, Col, Modal, Row, Image, Typography, Avatar, Divider, Statistic} 
 import React, {useState} from 'react';
 import {CloseOutlined} from '@ant-design/icons';
 
-const {Title, Text} = Typography;
+const {Title, Paragraph, Text} = Typography;
 
 const BlockButton = (props: any) => {
     return (
@@ -37,10 +37,12 @@ const LeftPart = () => {
                     </Title>
                 </Col>
                 <Col span={24}>
-                    <Text type='secondary'>
-                        You have 1 business day to accept the sale.<br/>
+                    <Paragraph type='secondary'>
+                        You have 1 business day to accept the sale.
+                    </Paragraph>
+                    <Paragraph type='secondary'>
                         If you do not accept, it will be automatically rejected.
-                    </Text>
+                    </Paragraph>
                 </Col>
             </Row>
 
@@ -60,31 +62,39 @@ const LeftPart = () => {
                 </Col>
             </Row>
         </RoundContainer>
-    )
+)
 }
 
-const RoundContainer = (props: any) => {
+interface RoundContainerProps {
+    backgroundColor?: string;
+    style?: React.CSSProperties;
+}
+
+const RoundContainer = <T extends RoundContainerProps>(props: React.PropsWithChildren<T>) => {
     const containerStyle = {
         padding: '20px 14px 20px 14px',
         margin: '0px 10px',
         borderRadius: '18px',
-        backgroundColor: props.background || 'transparent'
+        backgroundColor: props.backgroundColor || 'transparent',
+        ...props.style
     };
 
-    return(
+    return (
         <div className="round-container" style={containerStyle}>
             {props.children}
         </div>
     )
 }
 
-const Money = (props: {value: number}) => {
-    return(
+const Money = (props: {
+    value: number
+}) => {
+    return (
         <Statistic
             prefix={<Text>$</Text>}
             precision={2}
             value={props.value}
-            valueStyle={{fontSize:'14px'}}
+            valueStyle={{fontSize: '14px'}}
         />
     )
 }
@@ -92,7 +102,7 @@ const Money = (props: {value: number}) => {
 interface StatisticRowProps {
     text: string;
     value: number;
-    placeholder?: string;
+    placeholder ? : string;
 }
 
 
@@ -107,7 +117,7 @@ const StatisticRow = (props: StatisticRowProps) =>{
             </Col>
             <Col>
                 {props.value !== 0 ? (
-                    <Money value={props.value} />
+                    <Money value={props.value}/>
                 ) : (
                     <Text>{props.placeholder}</Text>
                 )}
@@ -126,9 +136,7 @@ const RightPart = () => {
         <RoundContainer
             backgroundColor={"#F6F4F1"}
         >
-            <Row>
-                <Divider/>
-            </Row>
+            <Divider/>
             <Row>
                 <Col span={18}>
                     <Row>
@@ -152,19 +160,15 @@ const RightPart = () => {
                     />
                 </Col>
             </Row>
-            <Row>
-                <Divider/>
-            </Row>
+                    <Divider/>
             <StatisticRow text={"Selling Price"} value={1777777945}/>
-            <StatisticRow text={"Level 1 Commision(6.5%)"} value={1556.75} />
+            <StatisticRow text={"Level 1 Commision(6.5%)"} value={1556.75}/>
 
-            <StatisticRow text={'Seller fee'} value={15} />
+            <StatisticRow text={'Seller fee'} value={15}/>
             <StatisticRow text={'Insured Shipping'} value={0}/>
-            <StatisticRow text={'Bezel authentication'} value={0} />
-            <Row>
-                <Divider/>
-            </Row>
-            <StatisticRow text={'Earnings'} value={22378.25} />
+            <StatisticRow text={'Bezel authentication'} value={0}/>
+                    <Divider/>
+            <StatisticRow text={'Earnings'} value={22378.25}/>
 
         </RoundContainer>
     );
