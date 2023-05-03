@@ -155,84 +155,17 @@ const RightPart = () => {
             <Row>
                 <Divider/>
             </Row>
-            <Row justify={'space-between'}>
-                <Col>
-                    <Text>
-                        Selling Price
-                    </Text>
-                </Col>
-                <Col>
-                    <Text>
-                        $1777777,945.00
-                    </Text>
-                </Col>
-            </Row>
-            <Row justify={'space-between'}>
-                <Col>
-                    <Text>
-                        Level 1 Commision(6.5%)
-                    </Text>
-                </Col>
-                <Col>
-                    <Text>
-                        $1,556.75
-                    </Text>
-                </Col>
-            </Row>
-            <Row justify={'space-between'}>
-                <Col>
-                    <Text>
-                        Seller fee
-                    </Text>
-                </Col>
-                <Col>
-                    <Statistic
-                        prefix={<Text>$</Text>}
-                        precision={2}
-                        value={15}
-                        valueStyle={{fontSize:'14px'}}
-                    />
-                </Col>
-            </Row>
-            <Row justify={'space-between'}>
-                <Col>
-                    <Text>
-                        Insured Shipping
-                    </Text>
-                </Col>
-                <Col>
-                    <Text>
-                        Free
-                    </Text>
-                </Col>
-            </Row>
-            <Row justify={'space-between'}>
-                <Col>
-                    <Text>
-                        Bezel authentication
-                    </Text>
-                </Col>
-                <Col>
-                    <Text>
-                        Free
-                    </Text>
-                </Col>
-            </Row>
+            <StatisticRow text={"Selling Price"} value={1777777945}/>
+            <StatisticRow text={"Level 1 Commision(6.5%)"} value={1556.75} />
+
+            <StatisticRow text={'Seller fee'} value={15} />
+            <StatisticRow text={'Insured Shipping'} value={0}/>
+            <StatisticRow text={'Bezel authentication'} value={0} />
             <Row>
                 <Divider/>
             </Row>
-            <Row justify={'space-around'}>
-                <Col span={12}>
-                    <Text>
-                        Earinings
-                    </Text>
-                </Col>
-                <Col span={12}>
-                    <Text>
-                        $22,378.25
-                    </Text>
-                </Col>
-            </Row>
+            <StatisticRow text={'Earnings'} value={22378.25} />
+
         </RoundContainer>
     );
 }
