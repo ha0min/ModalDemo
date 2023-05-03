@@ -1,15 +1,13 @@
-import Image from 'next/image'
-import {Inter} from 'next/font/google'
-import {Button, Col, Modal, Row, Space, Typography} from "antd";
-import {useState} from "react";
+import {Button, Col, Modal, Row, Image, Typography, Avatar, Divider, Statistic} from "antd";
+import React, {useState} from "react";
 import {CloseOutlined} from '@ant-design/icons';
 
-const inter = Inter({subsets: ['latin']})
+const {Title, Text} = Typography;
 
 const BlockButton = (props: any) => {
     return (
         <Button
-            style={{height:"56px", borderRadius:"18px"}}
+            style={{height: "56px", borderRadius: "18px"}}
             type={props?.type}
             block={true}
             onClick={props?.onClick}
@@ -21,7 +19,6 @@ const BlockButton = (props: any) => {
 }
 
 const LeftPart = () => {
-    const {Title, Text} = Typography;
 
 
     return (
@@ -32,7 +29,7 @@ const LeftPart = () => {
                 </Col>
             </Row>
             <Row
-                style={{marginBottom:"30px"}}
+                style={{marginBottom: "30px"}}
             >
                 <Col span={24}>
                     <Title level={2}>
@@ -64,6 +61,121 @@ const LeftPart = () => {
             </Row>
         </div>
     )
+}
+
+const RightPart = () => {
+
+    return (
+        <div>
+            <Row>
+                <Divider/>
+            </Row>
+            <Row>
+                <Col span={18}>
+                    <Row>
+                        <Text>
+                            Brand name
+                        </Text>
+                    </Row>
+                    <Row>
+                        <Text>
+                            Condition / Year
+                        </Text>
+                    </Row>
+                </Col>
+                <Col span={4}>
+                    <Avatar
+                        alt={"image"}
+                        shape={"square"}
+                        size={80}
+                        draggable={false}
+                        src={"https://getbezel.mo.cloudinary.net/production/32616290-d113-4a7b-9a07-53734b746e0c.png?tx=f_auto,c_limit,w_1080,q_auto"}
+                    />
+                </Col>
+            </Row>
+            <Row>
+                <Divider/>
+            </Row>
+            <Row justify={"space-between"}>
+                <Col span={12}>
+                    <Text>
+                        Selling Price
+                    </Text>
+                </Col>
+                <Col span={12}>
+                    <Text>
+                        $17,945.00
+                    </Text>
+                </Col>
+            </Row>
+            <Row justify={"space-between"}>
+                <Col span={12}>
+                    <Text>
+                        Level 1 Commision(6.5%)
+                    </Text>
+                </Col>
+                <Col span={12}>
+                    <Text>
+                        $1,556.75
+                    </Text>
+                </Col>
+            </Row>
+            <Row justify={"space-between"}>
+                <Col span={12}>
+                    <Text>
+                        Seller fee
+                    </Text>
+                </Col>
+                <Col span={12}>
+                    <Statistic
+                        prefix={<Text>$</Text>}
+                        precision={2}
+                        value={15}
+                        valueStyle={{fontSize:"14px"}}
+                    />
+                </Col>
+            </Row>
+            <Row justify={"space-between"}>
+                <Col span={12}>
+                    <Text>
+                        Insured Shipping
+                    </Text>
+                </Col>
+                <Col span={12}>
+                    <Text>
+                        Free
+                    </Text>
+                </Col>
+            </Row>
+            <Row justify={"space-between"}>
+                <Col span={12}>
+                    <Text>
+                        Bezel authentication
+                    </Text>
+                </Col>
+                <Col span={12}>
+                    <Text>
+                        Free
+                    </Text>
+                </Col>
+            </Row>
+            <Row>
+                <Divider/>
+            </Row>
+            <Row justify={"space-between"}>
+                <Col span={12}>
+                    <Text>
+                        Earinings
+                    </Text>
+                </Col>
+                <Col span={12}>
+                    <Text>
+                        $22,378.25
+                    </Text>
+                </Col>
+            </Row>
+        </div>
+    );
 }
 
 export default function Home() {
@@ -119,7 +231,7 @@ export default function Home() {
                     <Col
                         span={12}
                     >
-                        right
+                        <RightPart/>
                     </Col>
                 </Row>
             </Modal>
