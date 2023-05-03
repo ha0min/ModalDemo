@@ -31,7 +31,9 @@ const LeftPart = () => {
                     <Text>CONGRATS!</Text>
                 </Col>
             </Row>
-            <Row>
+            <Row
+                style={{marginBottom:"30px"}}
+            >
                 <Col span={24}>
                     <Title level={2}>
                         Your watch sold!
@@ -44,6 +46,7 @@ const LeftPart = () => {
                     </Text>
                 </Col>
             </Row>
+
             <Row justify={"center"} gutter={[12, 10]}>
                 <Col span={24}>
                     <BlockButton
