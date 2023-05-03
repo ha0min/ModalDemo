@@ -37,7 +37,30 @@ export default function Home() {
                 okButtonProps={{ disabled: true }}
                 cancelButtonProps={{ disabled: true }}
             >
-
+                <Row
+                    justify={"end"}
+                >
+                    <Col>
+                        <Button
+                            type="text"
+                            shape="circle"
+                            icon={<CloseOutlined />}
+                            onClick={(e) => handleCancel(e)}
+                        />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col
+                        span={12}
+                    >
+                        left
+                    </Col>
+                    <Col
+                        span={12}
+                    >
+                        right
+                    </Col>
+                </Row>
             </Modal>
         </main>
     )
