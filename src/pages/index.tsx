@@ -174,24 +174,12 @@ const RightPart = () => {
 }
 
 interface ModalProps {
-    handleCancel: (e: React.MouseEvent<HTMLElement>) => void;
+    orderData: OrderData | null,
 }
 
 const ModalData = (props: ModalProps) => {
     return (
         <div>
-            <Row
-                justify={'end'}
-            >
-                <Col>
-                    <Button
-                        type='text'
-                        shape='circle'
-                        icon={<CloseOutlined/>}
-                        onClick={props.handleCancel}
-                    />
-                </Col>
-            </Row>
             <Row>
                 <Col
                     span={12}
@@ -210,7 +198,7 @@ const ModalData = (props: ModalProps) => {
 
 const useOrder = () => {
 // https://eb863a74-7a4e-4daf-9540-d2db8470c18e.mock.pstmn.io/marketplace/orders/
-    const {data, error, isMutating, trigger} = useSWRMutation(
+    const {data, error, isMutating, trigger, reset} = useSWRMutation(
         `https://testhm.free.beeceptor.com/orders/`,
         fetcher,
     );
@@ -219,7 +207,8 @@ const useOrder = () => {
         order: data,
         isMutating,
         isError: error,
-        trigger
+        trigger,
+        reset
     }
 }
 
@@ -232,7 +221,7 @@ const fetcher = (url: string, {arg}: { arg: { id: string } }) => {
     })
 }
 
-interface RenderingData {
+interface OrderData {
     brandName: string;
     modelName: string;
     manufactureYear: number;
@@ -246,9 +235,9 @@ interface RenderingData {
 
 export default function Home() {
     const [open, setOpen] = useState(false);
-    const [orderData, setOrderData] = useState<RenderingData | null>(null);
+    const [orderData, setOrderData] = useState<OrderData | null>(null);
 
-    const {isMutating, isError, trigger} = useOrder();
+    const {isMutating, isError, trigger, reset} = useOrder();
 
     const loadData = () => {
         trigger({id: '123'})
@@ -295,6 +284,7 @@ export default function Home() {
 
     const handleCancel = (e: React.MouseEvent<HTMLElement>) => {
         console.log(e);
+        reset();
         setOpen(false);
     };
 
@@ -313,6 +303,18 @@ export default function Home() {
                 okButtonProps={{disabled: true}}
                 cancelButtonProps={{disabled: true}}
             >
+                <Row
+                    justify={'end'}
+                >
+                    <Col>
+                        <Button
+                            type='text'
+                            shape='circle'
+                            icon={<CloseOutlined/>}
+                            onClick={handleCancel}
+                        />
+                    </Col>
+                </Row>
                 <Skeleton active={true} loading={isMutating}>
                     {isError ? (
                         <Alert
@@ -321,7 +323,7 @@ export default function Home() {
                             type='error'
                             showIcon
                             />
-                    ) :   <ModalData handleCancel={handleCancel}/>
+                    ) :   <ModalData orderData={orderData}/>
 
                     }
                 </Skeleton>
