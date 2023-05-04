@@ -1,4 +1,4 @@
-import {Button, Col, Modal, Row, Skeleton, Alert, message} from 'antd';
+import {Button, Col, Modal, Row, Skeleton, Alert, message, ConfigProvider} from 'antd';
 import React, {useState} from 'react';
 import {CloseOutlined} from '@ant-design/icons';
 import {useDecision, useOrder} from "@/utils/common";
@@ -97,47 +97,55 @@ export default function Home() {
     }
 
     return (
-        <div
+        <ConfigProvider
+            theme={{
+                token: {
+                    colorPrimary: '#1a3a32',
+                },
+            }}
         >
-            <Button type='primary' onClick={showModal}>
-                Open Modal
-            </Button>
-            <Modal
-                title={null}
-                footer={null}
-                width={'64%'}
-                open={open}
-                closable={false}
+            <div
             >
-                <Row justify={'end'}>
-                    <Col>
-                        <Button
-                            type='text'
-                            shape='circle'
-                            icon={<CloseOutlined/>}
-                            onClick={onDeclineClick}
-                        />
-                    </Col>
-                </Row>
-                <Skeleton active={true} loading={isOrderMutating}>
-                    {
-                        isOrderError ? (
-                            <Alert
-                                message='Error'
-                                description='Error while loading data'
-                                type='error'
-                                showIcon
+                <Button type='primary' onClick={showModal}>
+                    Open Modal
+                </Button>
+                <Modal
+                    title={null}
+                    footer={null}
+                    width={'64%'}
+                    open={open}
+                    closable={false}
+                >
+                    <Row justify={'end'}>
+                        <Col>
+                            <Button
+                                type='text'
+                                shape='circle'
+                                icon={<CloseOutlined/>}
+                                onClick={onDeclineClick}
                             />
-                        ) : <OrderModal
-                            orderData={orderData}
-                            handleOk={onAcceptClick}
-                            handleCancel={onDeclineClick}
-                            isAcceptPosting={isAcceptPosting}
-                            isRejectPosting={isRejectPosting}
-                        />
-                    }
-                </Skeleton>
-            </Modal>
-        </div>
+                        </Col>
+                    </Row>
+                    <Skeleton active={true} loading={isOrderMutating}>
+                        {
+                            isOrderError ? (
+                                <Alert
+                                    message='Error'
+                                    description='Error while loading data'
+                                    type='error'
+                                    showIcon
+                                />
+                            ) : <OrderModal
+                                orderData={orderData}
+                                handleOk={onAcceptClick}
+                                handleCancel={onDeclineClick}
+                                isAcceptPosting={isAcceptPosting}
+                                isRejectPosting={isRejectPosting}
+                            />
+                        }
+                    </Skeleton>
+                </Modal>
+            </div>
+        </ConfigProvider>
     )
 }
