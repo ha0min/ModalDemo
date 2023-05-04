@@ -7,6 +7,10 @@ import {LeftPart} from "@/components/order-modal/left-part";
 
 interface ModalProps {
     orderData: OrderData | null,
+    handleOk: (e: React.MouseEvent<HTMLElement>) => void,
+    handleCancel: (e: React.MouseEvent<HTMLElement>) => void,
+    isAcceptPosting: boolean,
+    isRejectPosting: boolean,
 }
 
 export const OrderModal = (props: ModalProps) => {
@@ -16,7 +20,12 @@ export const OrderModal = (props: ModalProps) => {
                 <Col
                     span={12}
                 >
-                    <LeftPart/>
+                    <LeftPart
+                        handleOk={props.handleOk}
+                        handleCancel={props.handleCancel}
+                        isAcceptPosting={props.isAcceptPosting}
+                        isRejectPosting={props.isRejectPosting}
+                    />
                 </Col>
                 <Col
                     span={12}

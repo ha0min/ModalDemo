@@ -17,9 +17,7 @@ export const useOrder = () => {
 }
 
 const fetcher = (url: string, {arg}: { arg: { id: string } }) => {
-    console.log(url);
-    console.log(arg);
-    console.log(url + arg?.id);
+    console.log('fetch dest:',url + arg?.id);
     return fetch(url + arg?.id).then((res) => {
         return res.json()
     })

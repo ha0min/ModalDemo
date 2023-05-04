@@ -5,7 +5,14 @@ import React from "react";
 
 const {Title, Paragraph, Text} = Typography;
 
-export const LeftPart = () => {
+interface LeftPartProps {
+    handleOk: (e: React.MouseEvent<HTMLElement>) => void,
+    handleCancel: (e: React.MouseEvent<HTMLElement>) => void,
+    isAcceptPosting: boolean,
+    isRejectPosting: boolean,
+}
+
+export const LeftPart = (props: LeftPartProps) => {
     return (
         <RoundContainer>
             <Row>
@@ -36,6 +43,8 @@ export const LeftPart = () => {
                     <BlockButton
                         type={'primary'}
                         text={'Accept sale'}
+                        loading={props.isAcceptPosting}
+                        onClick={props.handleOk}
                     />
                 </Col>
             </Row>
@@ -44,6 +53,8 @@ export const LeftPart = () => {
                     <BlockButton
                         type={'text'}
                         text={'Reject sale'}
+                        loading={props.isRejectPosting}
+                        onClick={props.handleCancel}
                     />
                 </Col>
             </Row>

@@ -8,8 +8,9 @@ import {OrderModal} from "@/components/order-modal";
 export default function Home() {
     const [open, setOpen] = useState(false);
     const [orderData, setOrderData] = useState<OrderData | null>(null);
-
     const {isMutating, isError, trigger, reset} = useOrder();
+    const [isAcceptPosting, setIsAcceptPosting] = useState(false);
+    const [isRejectPosting, setIsRejectPosting] = useState(false);
 
     const loadData = () => {
         trigger({id: '123'})
@@ -24,6 +25,7 @@ export default function Home() {
                 } = order.listing;
 
                 const extractedData = {
+                    requestId: '123',
                     brandName: model.brand.displayName,
                     modelName: model.displayName,
                     manufactureYear,
@@ -50,21 +52,30 @@ export default function Home() {
     };
 
     const handleOk = (e: React.MouseEvent<HTMLElement>) => {
+        setIsAcceptPosting(true);
         console.log(e);
-        setOpen(false);
+
+        setTimeout(() => {
+            setIsAcceptPosting(false);
+            setOpen(false);
+        }, 3000);
     };
 
     const handleCancel = (e: React.MouseEvent<HTMLElement>) => {
+        setIsRejectPosting(true);
+        setTimeout(() => {
+            setIsRejectPosting(false);
+            setOpen(false);
+        }, 3000);
         console.log(e);
         reset();
-        setOpen(false);
     };
 
     return (
         <div
         >
             <Button type='primary' onClick={showModal}>
-                Open Modal with customized button props
+                Open Modal
             </Button>
             <Modal
                 title={null}
@@ -72,12 +83,8 @@ export default function Home() {
                 width={'64%'}
                 open={open}
                 closable={false}
-                okButtonProps={{disabled: true}}
-                cancelButtonProps={{disabled: true}}
             >
-                <Row
-                    justify={'end'}
-                >
+                <Row justify={'end'}>
                     <Col>
                         <Button
                             type='text'
@@ -88,15 +95,21 @@ export default function Home() {
                     </Col>
                 </Row>
                 <Skeleton active={true} loading={isMutating}>
-                    {isError ? (
-                        <Alert
-                            message='Error'
-                            description='Error while loading data'
-                            type='error'
-                            showIcon
+                    {
+                        isError ? (
+                            <Alert
+                                message='Error'
+                                description='Error while loading data'
+                                type='error'
+                                showIcon
                             />
-                    ) :   <OrderModal orderData={orderData}/>
-
+                        ) : <OrderModal
+                                orderData={orderData}
+                                handleOk={handleOk}
+                                handleCancel={handleCancel}
+                                isAcceptPosting={isAcceptPosting}
+                                isRejectPosting={isRejectPosting}
+                            />
                     }
                 </Skeleton>
             </Modal>
