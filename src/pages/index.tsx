@@ -1,13 +1,13 @@
-import {Button, Col, Modal, Row, Skeleton, Alert, message, ConfigProvider, Layout} from 'antd';
+import {Button, message, ConfigProvider, Layout, Space, Input} from 'antd';
 import React, {useState} from 'react';
-import {CloseOutlined} from '@ant-design/icons';
 import {useDecision, useOrder} from "@/utils/common";
 import {OrderData} from "@/compiler/types";
 import {OrderModal} from "@/components/order-modal";
 import {Typography} from "antd";
 import {primaryColor, secondaryColor} from "@/styles/colors";
+import {BlockButton} from "@/components/common/block-button";
 
-const {Title} = Typography;
+const {Title,Text} = Typography;
 
 const {Header, Content, Footer} = Layout;
 
@@ -18,9 +18,10 @@ export default function Home() {
     const {isDecisionMutating, decisionTrigger, decisionReset} = useDecision();
     const [isAcceptPosting, setIsAcceptPosting] = useState(false);
     const [isRejectPosting, setIsRejectPosting] = useState(false);
+    const [inputId, setInputId] = useState('');
 
     const loadData = () => {
-        orderTrigger({id: '123'})
+        orderTrigger({id: inputId})
             .then((order) => {
                 console.log(order);
 
@@ -61,7 +62,7 @@ export default function Home() {
     const onAcceptClick = (e: React.MouseEvent<HTMLElement>) => {
         console.log('handleOk', e);
         setIsAcceptPosting(true);
-        decisionTrigger({id: '123', decision: 'accept'})
+        decisionTrigger({id: inputId, decision: 'accept'})
             .then((res) => {
                     console.log('res', res);
 
@@ -84,7 +85,7 @@ export default function Home() {
     const onDeclineClick = (e: React.MouseEvent<HTMLElement>) => {
         console.log('handleOk', e);
         setIsRejectPosting(true);
-        decisionTrigger({id: '123', decision: 'decline'})
+        decisionTrigger({id: inputId, decision: 'decline'})
             .then((res) => {
                     console.log('res', res);
                     message.success('Order declined successfully.');
@@ -103,7 +104,6 @@ export default function Home() {
     }
 
 
-
     return (
         <ConfigProvider
             theme={{
@@ -117,9 +117,9 @@ export default function Home() {
                 <Header
                     style={{
                         backgroundColor: primaryColor,
-                        }}
+                    }}
                 >
-                    <Title level={3} style={{color:'white'}}>Modal Demo</Title>
+                    <Title level={3} style={{color: 'white'}}>Modal Demo</Title>
                 </Header>
                 <Content style={{
                     padding: '0 50px',
@@ -128,10 +128,19 @@ export default function Home() {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-
-                    <Button type='primary' onClick={showModal}>
-                        Open Modal
-                    </Button>
+                    <Space direction="vertical" size="large">
+                        <Text>Input the order id(endpoint id): </Text>
+                        <Input
+                            placeholder="Basic usage"
+                            defaultValue={'123'}
+                            onChange={(e) => setInputId(e.target.value)}
+                        />
+                        <BlockButton
+                            type='primary'
+                            onClick={showModal}
+                            text={'Open Modal'}
+                        />
+                    </Space>
                 </Content>
                 <Footer style={{textAlign: 'center'}}>Haomin Cheng</Footer>
             </Layout>
@@ -145,7 +154,7 @@ export default function Home() {
                 isOrderError={isOrderError}
                 isOrderMutating={isOrderMutating}
                 onModalClose={() => setOpen(false)}
-             />
+            />
         </ConfigProvider>
     )
 }
