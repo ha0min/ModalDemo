@@ -1,9 +1,14 @@
-import {Button, Col, Modal, Row, Skeleton, Alert, message, ConfigProvider} from 'antd';
+import {Button, Col, Modal, Row, Skeleton, Alert, message, ConfigProvider, Layout} from 'antd';
 import React, {useState} from 'react';
 import {CloseOutlined} from '@ant-design/icons';
 import {useDecision, useOrder} from "@/utils/common";
 import {OrderData} from "@/compiler/types";
 import {OrderModal} from "@/components/order-modal";
+import {Typography} from "antd";
+
+const {Title} = Typography;
+
+const {Header, Content, Footer} = Layout;
 
 export default function Home() {
     const [open, setOpen] = useState(false);
@@ -96,6 +101,8 @@ export default function Home() {
             });
     }
 
+
+
     return (
         <ConfigProvider
             theme={{
@@ -104,48 +111,64 @@ export default function Home() {
                 },
             }}
         >
-            <div
-            >
-                <Button type='primary' onClick={showModal}>
-                    Open Modal
-                </Button>
-                <Modal
-                    title={null}
-                    footer={null}
-                    width={'64%'}
-                    open={open}
-                    closable={false}
+            <Layout className="layout">
+                <Header
+                    style={{
+                        backgroundColor: '#1a3a32',
+                        }}
                 >
-                    <Row justify={'end'}>
-                        <Col>
-                            <Button
-                                type='text'
-                                shape='circle'
-                                icon={<CloseOutlined/>}
-                                onClick={onDeclineClick}
+                    <Title level={3} style={{color:'white'}}>Modal Demo</Title>
+                </Header>
+                <Content style={{
+                    padding: '0 50px',
+                    minHeight: '500px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
+
+                    <Button type='primary' onClick={showModal}>
+                        Open Modal
+                    </Button>
+                </Content>
+                <Footer style={{textAlign: 'center'}}>Haomin Cheng</Footer>
+            </Layout>
+            <Modal
+                title={null}
+                footer={null}
+                width={'64%'}
+                open={open}
+                closable={false}
+            >
+                <Row justify={'end'}>
+                    <Col>
+                        <Button
+                            type='text'
+                            shape='circle'
+                            icon={<CloseOutlined/>}
+                            onClick={onDeclineClick}
+                        />
+                    </Col>
+                </Row>
+                <Skeleton active={true} loading={isOrderMutating}>
+                    {
+                        isOrderError ? (
+                            <Alert
+                                message='Error'
+                                description='Error while loading data'
+                                type='error'
+                                showIcon
                             />
-                        </Col>
-                    </Row>
-                    <Skeleton active={true} loading={isOrderMutating}>
-                        {
-                            isOrderError ? (
-                                <Alert
-                                    message='Error'
-                                    description='Error while loading data'
-                                    type='error'
-                                    showIcon
-                                />
-                            ) : <OrderModal
-                                orderData={orderData}
-                                handleOk={onAcceptClick}
-                                handleCancel={onDeclineClick}
-                                isAcceptPosting={isAcceptPosting}
-                                isRejectPosting={isRejectPosting}
-                            />
-                        }
-                    </Skeleton>
-                </Modal>
-            </div>
+                        ) : <OrderModal
+                            orderData={orderData}
+                            handleOk={onAcceptClick}
+                            handleCancel={onDeclineClick}
+                            isAcceptPosting={isAcceptPosting}
+                            isRejectPosting={isRejectPosting}
+                        />
+                    }
+                </Skeleton>
+            </Modal>
         </ConfigProvider>
     )
 }
