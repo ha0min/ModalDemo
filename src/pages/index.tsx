@@ -5,6 +5,7 @@ import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 import {useOrder} from "@/utils/common";
 import {RoundContainer} from "@/components/common/round-container";
+import {StatisticRow} from "@/components/common/statistic-row";
 
 const {Title, Paragraph, Text} = Typography;
 
@@ -85,38 +86,6 @@ const Money = (props: MoneyProps) => {
     )
 }
 
-interface StatisticRowProps {
-    text: string;
-    value: number | undefined;
-    placeholder?: string;
-    color?: string;
-}
-
-const StatisticRow = ({value=99999, ...props}: StatisticRowProps) => {
-    return (
-        <Row
-            justify={'space-between'}
-            style={{marginBottom: '5px'}}
-        >
-            <Col>
-                <Text style={{color:props.color}}>
-                    {props.text}
-                </Text>
-            </Col>
-            <Col>
-                {value !== 0 ? (
-                    <Money color={props.color} value={value}/>
-                ) : (
-                    <Text style={{color:props.color}}>{props.placeholder}</Text>
-                )}
-            </Col>
-        </Row>
-    )
-}
-
-StatisticRow.defaultProps = {
-    placeholder: "Free",
-};
 
 interface RightPartProps {
     orderData: OrderData | null;
