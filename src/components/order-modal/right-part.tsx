@@ -1,11 +1,12 @@
+import React from "react";
+import {Typography} from "antd";
 import {RoundContainer} from "@/components/common/round-container";
 import {Avatar, Col, Divider, Row, Space} from "antd";
 import {Money} from "@/components/common/money";
 import {StatisticRow} from "@/components/common/statistic-row";
-import React from "react";
-import Text from "antd/es/typography/Text";
 import {OrderData} from "@/compiler/types";
 
+const {Text} = Typography;
 interface RightPartProps {
     orderData: OrderData | null;
 }

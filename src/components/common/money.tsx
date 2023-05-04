@@ -1,6 +1,8 @@
 import {Statistic} from "antd";
-import Text from "antd/es/typography/Text";
 import React from "react";
+import {Typography} from "antd";
+
+const {Text} = Typography;
 
 interface MoneyProps {
     value: number | undefined;

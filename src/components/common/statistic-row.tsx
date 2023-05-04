@@ -1,7 +1,9 @@
 import {Col, Row} from "antd";
-import Text from "antd/es/typography/Text";
 import React from "react";
+import {Typography} from "antd";
 import {Money} from "@/components/common/money";
+
+const {Text} = Typography;
 
 interface StatisticRowProps {
     text: string;
