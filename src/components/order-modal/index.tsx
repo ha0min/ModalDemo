@@ -56,7 +56,9 @@ export const OrderModal = (props:ModalProps) => {
             footer={null}
             width={'64%'}
             open={props.open}
+            maskClosable={true}
             closable={false}
+            onCancel={props.onModalClose}
         >
             <Row justify={'end'}>
                 <Col>
@@ -64,7 +66,7 @@ export const OrderModal = (props:ModalProps) => {
                         type='text'
                         shape='circle'
                         icon={<CloseOutlined/>}
-                        onClick={props.onDeclineClick}
+                        onClick={props.onModalClose}
                     />
                 </Col>
             </Row>

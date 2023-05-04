@@ -59,6 +59,12 @@ export default function Home() {
         loadData();
     };
 
+    const setClose = () => {
+        setOpen(false);
+        orderReset();
+        decisionReset();
+    }
+
     const onAcceptClick = (e: React.MouseEvent<HTMLElement>) => {
         console.log('handleOk', e);
         setIsAcceptPosting(true);
@@ -75,9 +81,7 @@ export default function Home() {
             })
             .finally(() => {
                 setIsAcceptPosting(false)
-                setOpen(false);
-                orderReset();
-                decisionReset();
+                setClose();
             });
     }
 
@@ -97,9 +101,7 @@ export default function Home() {
             })
             .finally(() => {
                 setIsRejectPosting(false);
-                setOpen(false);
-                orderReset();
-                decisionReset();
+                setClose();
             });
     }
 
@@ -153,7 +155,7 @@ export default function Home() {
                 isRejectPosting={isRejectPosting}
                 isOrderError={isOrderError}
                 isOrderMutating={isOrderMutating}
-                onModalClose={() => setOpen(false)}
+                onModalClose={() => setClose()}
             />
         </ConfigProvider>
     )
