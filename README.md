@@ -1,6 +1,8 @@
 # 🚀 Modal Demo Project
 
-This project demonstrates a modal implementation using [Next.js](https://nextjs.org/) and [Ant Design](https://ant.design/). You can view the deployed version [here](https://modal-demo-mu.vercel.app/).
+This project demonstrates a modal implementation using [Next.js](https://nextjs.org/) and [Ant Design](https://ant.design/). 
+
+**You can view the deployed version [here](https://modal-demo-mu.vercel.app/).**
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
