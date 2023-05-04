@@ -1,4 +1,4 @@
-import {Button, Col, Modal, Row, Typography, Avatar, Divider, Statistic, Space, Skeleton} from 'antd';
+import {Button, Col, Modal, Row, Typography, Avatar, Divider, Statistic, Space, Skeleton, Alert} from 'antd';
 import React, {useState} from 'react';
 import {CloseOutlined} from '@ant-design/icons';
 import useSWR from "swr";
@@ -208,31 +208,10 @@ const ModalData = (props: ModalProps) => {
     )
 }
 
-interface OrderProps {
-    listing: {
-        model: {
-            brand: {
-                displayName: string;
-            };
-            displayName: string;
-        };
-        manufactureYear: number;
-        condition: string;
-        images: {
-            image: {
-                url: string;
-            };
-        }[];
-    };
-    salePriceCents: number;
-    commissionRateBips: number;
-    sellerFeeCents: number;
-    payoutAmountCents: number;
-}
-
 const useOrder = () => {
+// https://eb863a74-7a4e-4daf-9540-d2db8470c18e.mock.pstmn.io/marketplace/orders/
     const {data, error, isMutating, trigger} = useSWRMutation(
-        `https://eb863a74-7a4e-4daf-9540-d2db8470c18e.mock.pstmn.io/marketplace/orders/`,
+        `https://testhm.free.beeceptor.com/orders/`,
         fetcher,
     );
 
@@ -253,15 +232,55 @@ const fetcher = (url: string, {arg}: { arg: { id: string } }) => {
     })
 }
 
+interface RenderingData {
+    brandName: string;
+    modelName: string;
+    manufactureYear: number;
+    condition: string;
+    imageUrl: string;
+    salePriceCents: number;
+    commissionRateBips: number;
+    sellerFeeCents: number;
+    payoutAmountCents: number;
+}
+
 export default function Home() {
     const [open, setOpen] = useState(false);
-    const [loading, setLoading] = useState(false);
-    const [data, setData] = useState<any>(null);
+    const [orderData, setOrderData] = useState<RenderingData | null>(null);
 
-    const {order, isMutating, isError, trigger} = useOrder();
+    const {isMutating, isError, trigger} = useOrder();
 
     const loadData = () => {
+        trigger({id: '123'})
+            .then((order) => {
+                console.log(order);
 
+                const {
+                    model,
+                    manufactureYear,
+                    condition,
+                    images,
+                } = order.listing;
+
+                const extractedData = {
+                    brandName: model.brand.displayName,
+                    modelName: model.displayName,
+                    manufactureYear,
+                    condition,
+                    imageUrl: images[0].image.url,
+                    salePriceCents: order.salePriceCents,
+                    commissionRateBips: order.commissionRateBips,
+                    sellerFeeCents: order.sellerFeeCents,
+                    payoutAmountCents: order.payoutAmountCents,
+                };
+
+                console.log('extractedData', extractedData);
+
+                setOrderData(extractedData);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     const showModal = () => {
@@ -295,7 +314,16 @@ export default function Home() {
                 cancelButtonProps={{disabled: true}}
             >
                 <Skeleton active={true} loading={isMutating}>
-                    <ModalData handleCancel={handleCancel}/>
+                    {isError ? (
+                        <Alert
+                            message='Error'
+                            description='Error while loading data'
+                            type='error'
+                            showIcon
+                            />
+                    ) :   <ModalData handleCancel={handleCancel}/>
+
+                    }
                 </Skeleton>
             </Modal>
         </div>
