@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import {CloseOutlined} from '@ant-design/icons';
 import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
+import {useOrder} from "@/utils/common";
 
 const {Title, Paragraph, Text} = Typography;
 
@@ -226,7 +227,7 @@ interface ModalProps {
     orderData: OrderData | null,
 }
 
-const ModalData = (props: ModalProps) => {
+const OrderModal = (props: ModalProps) => {
     return (
         <div>
             <Row>
@@ -245,31 +246,6 @@ const ModalData = (props: ModalProps) => {
             </Row>
         </div>
     )
-}
-
-const useOrder = () => {
-// https://eb863a74-7a4e-4daf-9540-d2db8470c18e.mock.pstmn.io/marketplace/orders/
-    const {data, error, isMutating, trigger, reset} = useSWRMutation(
-        `https://testhm.free.beeceptor.com/orders/`,
-        fetcher,
-    );
-
-    return {
-        order: data,
-        isMutating,
-        isError: error,
-        trigger,
-        reset
-    }
-}
-
-const fetcher = (url: string, {arg}: { arg: { id: string } }) => {
-    console.log(url);
-    console.log(arg);
-    console.log(url + arg?.id);
-    return fetch(url + arg?.id).then((res) => {
-        return res.json()
-    })
 }
 
 interface OrderData {
@@ -377,7 +353,7 @@ export default function Home() {
                             type='error'
                             showIcon
                             />
-                    ) :   <ModalData orderData={orderData}/>
+                    ) :   <OrderModal orderData={orderData}/>
 
                     }
                 </Skeleton>
