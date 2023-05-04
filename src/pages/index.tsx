@@ -1,4 +1,4 @@
-import {Button, Col, Modal, Row, Image, Typography, Avatar, Divider, Statistic, Space} from 'antd';
+import {Button, Col, Modal, Row, Typography, Avatar, Divider, Statistic, Space, Skeleton} from 'antd';
 import React, {useState} from 'react';
 import {CloseOutlined} from '@ant-design/icons';
 
@@ -153,7 +153,7 @@ const RightPart = () => {
                     <Avatar
                         alt={'image'}
                         shape={'square'}
-                        size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
+                        size={{xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100}}
                         draggable={false}
                         src={'https://getbezel.mo.cloudinary.net/production/32616290-d113-4a7b-9a07-53734b746e0c.png?tx=f_auto,c_limit,w_1080,q_auto'}
                     />
@@ -173,11 +173,58 @@ const RightPart = () => {
     );
 }
 
+interface ModalProps {
+    handleCancel: (e: React.MouseEvent<HTMLElement>) => void;
+}
+
+const ModalData = (props: ModalProps) => {
+    return (
+        <div>
+            <Row
+                justify={'end'}
+            >
+                <Col>
+                    <Button
+                        type='text'
+                        shape='circle'
+                        icon={<CloseOutlined/>}
+                        onClick={props.handleCancel}
+                    />
+                </Col>
+            </Row>
+            <Row>
+                <Col
+                    span={12}
+                >
+                    <LeftPart/>
+                </Col>
+                <Col
+                    span={12}
+                >
+                    <RightPart/>
+                </Col>
+            </Row>
+        </div>
+    )
+}
+
 export default function Home() {
     const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState<any>(null);
+
+    const loadData = () => {
+        setLoading(true);
+        setTimeout(() => {
+
+            setData({});
+            setLoading(false);
+        }, 3000);
+    }
 
     const showModal = () => {
         setOpen(true);
+        loadData();
     };
 
     const handleOk = (e: React.MouseEvent<HTMLElement>) => {
@@ -205,30 +252,9 @@ export default function Home() {
                 okButtonProps={{disabled: true}}
                 cancelButtonProps={{disabled: true}}
             >
-                <Row
-                    justify={'end'}
-                >
-                    <Col>
-                        <Button
-                            type='text'
-                            shape='circle'
-                            icon={<CloseOutlined/>}
-                            onClick={(e) => handleCancel(e)}
-                        />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col
-                        span={12}
-                    >
-                        <LeftPart/>
-                    </Col>
-                    <Col
-                        span={12}
-                    >
-                        <RightPart/>
-                    </Col>
-                </Row>
+                <Skeleton active={true} loading={loading}>
+                    <ModalData handleCancel={handleCancel}/>
+                </Skeleton>
             </Modal>
         </div>
     )
