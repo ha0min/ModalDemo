@@ -27,7 +27,7 @@ const OrderModalContent = (props: OrderModalContentProps) => {
         <div>
             <Row>
                 <Col
-                    span={12}
+                    xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}
                 >
                     <LeftPart
                         handleOk={props.onAcceptClick}
@@ -37,7 +37,7 @@ const OrderModalContent = (props: OrderModalContentProps) => {
                     />
                 </Col>
                 <Col
-                    span={12}
+                    xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}
                 >
                     <RightPart
                         orderData={props.orderData}

@@ -37,7 +37,8 @@ This project has several great features that make it stand out:
 1. 🦴 **Loading Skeleton**: When the modal data is being fetched, a loading skeleton is displayed to provide a better user experience.
 2. 📣 **Notification Messages**: After clicking buttons in the modal, users will receive informative notification messages.
 3. 🧩 **Highly Abstract & Decoupled Components**: The project's components are designed to be highly abstract and decoupled, making them easier to maintain and extend.
-4. 🔌 **Dynamic Data Fetching**: Users can input an ID in the input box, and the project will fetch the corresponding data from the API, providing a more interactive and flexible user experience.
+4. 🔌 **Dynamic Data Fetching**: Users can input an ID in the input box, and the project will fetch the corresponding data from the API, providing a more interactive and flexible user experience. 
+5. 📱 **Responsive Design**: The project supports responsive design, ensuring an optimal user experience on both desktop and mobile devices.
 
 Explore the project and experience these features for yourself! 😄
 
