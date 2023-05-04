@@ -67,7 +67,6 @@ export const RightPart = ({orderData, ...props}: RightPartProps) => {
                     ((orderData.salePriceCents/100 || 0) * (orderData.commissionRateBips/10000 || 0))
                 }
                 color={secondaryColor}
-
             />
 
             <StatisticRow text={'Seller fee'}

@@ -135,42 +135,17 @@ export default function Home() {
                 </Content>
                 <Footer style={{textAlign: 'center'}}>Haomin Cheng</Footer>
             </Layout>
-            <Modal
-                title={null}
-                footer={null}
-                width={'64%'}
+            <OrderModal
                 open={open}
-                closable={false}
-            >
-                <Row justify={'end'}>
-                    <Col>
-                        <Button
-                            type='text'
-                            shape='circle'
-                            icon={<CloseOutlined/>}
-                            onClick={onDeclineClick}
-                        />
-                    </Col>
-                </Row>
-                <Skeleton active={true} loading={isOrderMutating}>
-                    {
-                        isOrderError ? (
-                            <Alert
-                                message='Error'
-                                description='Error while loading data'
-                                type='error'
-                                showIcon
-                            />
-                        ) : <OrderModal
-                            orderData={orderData}
-                            handleOk={onAcceptClick}
-                            handleCancel={onDeclineClick}
-                            isAcceptPosting={isAcceptPosting}
-                            isRejectPosting={isRejectPosting}
-                        />
-                    }
-                </Skeleton>
-            </Modal>
+                orderData={orderData}
+                onAcceptClick={onAcceptClick}
+                onDeclineClick={onDeclineClick}
+                isAcceptPosting={isAcceptPosting}
+                isRejectPosting={isRejectPosting}
+                isOrderError={isOrderError}
+                isOrderMutating={isOrderMutating}
+                onModalClose={() => setOpen(false)}
+             />
         </ConfigProvider>
     )
 }
