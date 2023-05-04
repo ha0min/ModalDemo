@@ -1,19 +1,20 @@
-import {Button, Col, Modal, Row, Skeleton, Alert} from 'antd';
+import {Button, Col, Modal, Row, Skeleton, Alert, message} from 'antd';
 import React, {useState} from 'react';
 import {CloseOutlined} from '@ant-design/icons';
-import {useOrder} from "@/utils/common";
+import {useDecision, useOrder} from "@/utils/common";
 import {OrderData} from "@/compiler/types";
 import {OrderModal} from "@/components/order-modal";
 
 export default function Home() {
     const [open, setOpen] = useState(false);
     const [orderData, setOrderData] = useState<OrderData | null>(null);
-    const {isMutating, isError, trigger, reset} = useOrder();
+    const {isOrderMutating, isOrderError, orderTrigger, orderReset} = useOrder();
+    const {isDecisionMutating, decisionTrigger, decisionReset} = useDecision();
     const [isAcceptPosting, setIsAcceptPosting] = useState(false);
     const [isRejectPosting, setIsRejectPosting] = useState(false);
 
     const loadData = () => {
-        trigger({id: '123'})
+        orderTrigger({id: '123'})
             .then((order) => {
                 console.log(order);
 
@@ -51,25 +52,49 @@ export default function Home() {
         loadData();
     };
 
-    const handleOk = (e: React.MouseEvent<HTMLElement>) => {
+    const onAcceptClick = (e: React.MouseEvent<HTMLElement>) => {
+        console.log('handleOk', e);
         setIsAcceptPosting(true);
-        console.log(e);
+        decisionTrigger({id: '123', decision: 'accept'})
+            .then((res) => {
+                    console.log('res', res);
 
-        setTimeout(() => {
-            setIsAcceptPosting(false);
-            setOpen(false);
-        }, 3000);
-    };
+                    message.success('Order accepted successfully.');
+                }
+            )
+            .catch((err) => {
+                console.log('err', err);
+                message.error('Order accept failed, please try again.');
+            })
+            .finally(() => {
+                setIsAcceptPosting(false)
+                setOpen(false);
+                orderReset();
+                decisionReset();
+            });
+    }
 
-    const handleCancel = (e: React.MouseEvent<HTMLElement>) => {
+
+    const onDeclineClick = (e: React.MouseEvent<HTMLElement>) => {
+        console.log('handleOk', e);
         setIsRejectPosting(true);
-        setTimeout(() => {
-            setIsRejectPosting(false);
-            setOpen(false);
-        }, 3000);
-        console.log(e);
-        reset();
-    };
+        decisionTrigger({id: '123', decision: 'decline'})
+            .then((res) => {
+                    console.log('res', res);
+                    message.success('Order declined successfully.');
+                }
+            )
+            .catch((err) => {
+                console.log('err', err);
+                message.error('Order decline failed, please try again.');
+            })
+            .finally(() => {
+                setIsRejectPosting(false);
+                setOpen(false);
+                orderReset();
+                decisionReset();
+            });
+    }
 
     return (
         <div
@@ -90,13 +115,13 @@ export default function Home() {
                             type='text'
                             shape='circle'
                             icon={<CloseOutlined/>}
-                            onClick={handleCancel}
+                            onClick={onDeclineClick}
                         />
                     </Col>
                 </Row>
-                <Skeleton active={true} loading={isMutating}>
+                <Skeleton active={true} loading={isOrderMutating}>
                     {
-                        isError ? (
+                        isOrderError ? (
                             <Alert
                                 message='Error'
                                 description='Error while loading data'
@@ -104,12 +129,12 @@ export default function Home() {
                                 showIcon
                             />
                         ) : <OrderModal
-                                orderData={orderData}
-                                handleOk={handleOk}
-                                handleCancel={handleCancel}
-                                isAcceptPosting={isAcceptPosting}
-                                isRejectPosting={isRejectPosting}
-                            />
+                            orderData={orderData}
+                            handleOk={onAcceptClick}
+                            handleCancel={onDeclineClick}
+                            isAcceptPosting={isAcceptPosting}
+                            isRejectPosting={isRejectPosting}
+                        />
                     }
                 </Skeleton>
             </Modal>
