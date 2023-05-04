@@ -1,8 +1,24 @@
+# 🚀 Modal Demo Project
+
+This project demonstrates a modal implementation using [Next.js](https://nextjs.org/) and [Ant Design](https://ant.design/). 
+
+**You can view the deployed version [here](https://modal-demo-mu.vercel.app/).**
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-First, run the development server:
+First, install the required dependencies:
+
+```bash
+npm install
+# or
+yarn
+# or
+pnpm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -14,25 +30,41 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Key Features
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+This project has several great features that make it stand out:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+1. 🦴 **Loading Skeleton**: When the modal data is being fetched, a loading skeleton is displayed to provide a better user experience.
+2. 📣 **Notification Messages**: After clicking buttons in the modal, users will receive informative notification messages.
+3. 🧩 **Highly Abstract & Decoupled Components**: The project's components are designed to be highly abstract and decoupled, making them easier to maintain and extend.
+4. 🔌 **Dynamic Data Fetching**: Users can input an ID in the input box, and the project will fetch the corresponding data from the API, providing a more interactive and flexible user experience.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Explore the project and experience these features for yourself! 😄
 
-## Learn More
+## Design
 
-To learn more about Next.js, take a look at the following resources:
+This project utilizes [Ant Design](https://ant.design/) for UI components and design.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The main file structure is as follows:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```text
+├── components
+│   ├── common
+│   │   ├── block-button.tsx
+│   │   ├── money.tsx
+│   │   ├── round-container.tsx
+│   │   └── statistic-row.tsx
+│   └── order-modal
+│       ├── index.tsx
+│       ├── left-part.tsx
+│       └── right-part.tsx
+├── pages
+│   └── index.tsx
+├── styles
+│   └── colors.ts
+└── utils
+    └── common.ts
+```
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
