@@ -108,7 +108,10 @@ interface StatisticRowProps {
 
 const StatisticRow = ({text, value=99999, placeholder}: StatisticRowProps) => {
     return (
-        <Row justify={'space-between'}>
+        <Row
+            justify={'space-between'}
+            style={{marginBottom: '8px'}}
+        >
             <Col>
                 <Text>
                     {text}
@@ -163,14 +166,30 @@ const RightPart = ({orderData, ...props}: RightPartProps) => {
                 </Col>
             </Row>
             <Divider/>
-            <StatisticRow text={"Selling Price"} value={orderData?.salePriceCents}/>
-            <StatisticRow text={"Level 1 Commision(6.5%)"} value={1556.75}/>
+            <StatisticRow text={"Selling Price"} value={orderData?.salePriceCents && orderData.salePriceCents / 100}/>
+            <StatisticRow
+                text={`Level 1 Commission(${(orderData?.commissionRateBips || 0) / 100}%)`}
+                value={
+                    orderData?.salePriceCents && orderData?.commissionRateBips &&
+                    ((orderData.salePriceCents/100 || 0) * (orderData.commissionRateBips/10000 || 0))
+                }
+            />
 
-            <StatisticRow text={'Seller fee'} value={orderData?.sellerFeeCents}/>
-            <StatisticRow text={'Insured Shipping'} value={0}/>
-            <StatisticRow text={'Bezel authentication'} value={0}/>
+            <StatisticRow text={'Seller fee'} value={orderData?.sellerFeeCents && orderData.sellerFeeCents / 100}/>
+            <StatisticRow text={'Insured Shipping'} value={orderData?.insuredShipping || 0}/>
+            <StatisticRow text={'Bezel authentication'} value={orderData?.authentication  || 0}/>
             <Divider/>
-            <StatisticRow text={'Earnings'} value={22378.25}/>
+            <StatisticRow
+                text={'Earnings'}
+                value={
+                    orderData?.salePriceCents && orderData?.commissionRateBips && orderData?.sellerFeeCents &&
+                    orderData.salePriceCents / 100 -
+                    (orderData.salePriceCents / 100 * orderData.commissionRateBips / 10000) -
+                    orderData.sellerFeeCents / 100
+                    - (orderData.insuredShipping || 0)
+                    - (orderData.authentication || 0)
+                }
+            />
 
         </RoundContainer>
     );
@@ -236,6 +255,9 @@ interface OrderData {
     commissionRateBips: number;
     sellerFeeCents: number;
     payoutAmountCents: number;
+    insuredShipping?: number;
+    authentication?: number;
+
 }
 
 export default function Home() {
