@@ -102,23 +102,23 @@ const Money = (props: {
 
 interface StatisticRowProps {
     text: string;
-    value: number;
+    value: number | undefined;
     placeholder?: string;
 }
 
-const StatisticRow = (props: StatisticRowProps) => {
+const StatisticRow = ({text, value=99999, placeholder}: StatisticRowProps) => {
     return (
         <Row justify={'space-between'}>
             <Col>
                 <Text>
-                    {props.text}
+                    {text}
                 </Text>
             </Col>
             <Col>
-                {props.value !== 0 ? (
-                    <Money value={props.value}/>
+                {value !== 0 ? (
+                    <Money value={value}/>
                 ) : (
-                    <Text>{props.placeholder}</Text>
+                    <Text>{placeholder}</Text>
                 )}
             </Col>
         </Row>
@@ -129,8 +129,11 @@ StatisticRow.defaultProps = {
     placeholder: "Free",
 };
 
+interface RightPartProps {
+    orderData: OrderData | null;
+}
 
-const RightPart = () => {
+const RightPart = ({orderData, ...props}: RightPartProps) => {
     return (
         <RoundContainer
             backgroundColor={"#F6F4F1"}
@@ -142,10 +145,10 @@ const RightPart = () => {
                         direction={'vertical'}
                     >
                         <Text>
-                            Patek Philippe
+                            {orderData?.brandName} {orderData?.modelName}
                         </Text>
                         <Text>
-                            NEW / 1900
+                            {orderData?.condition} / {orderData?.manufactureYear}
                         </Text>
                     </Space>
                 </Col>
@@ -155,15 +158,15 @@ const RightPart = () => {
                         shape={'square'}
                         size={{xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100}}
                         draggable={false}
-                        src={'https://getbezel.mo.cloudinary.net/production/32616290-d113-4a7b-9a07-53734b746e0c.png?tx=f_auto,c_limit,w_1080,q_auto'}
+                        src={orderData?.imageUrl}
                     />
                 </Col>
             </Row>
             <Divider/>
-            <StatisticRow text={"Selling Price"} value={1777777945}/>
+            <StatisticRow text={"Selling Price"} value={orderData?.salePriceCents}/>
             <StatisticRow text={"Level 1 Commision(6.5%)"} value={1556.75}/>
 
-            <StatisticRow text={'Seller fee'} value={15}/>
+            <StatisticRow text={'Seller fee'} value={orderData?.sellerFeeCents}/>
             <StatisticRow text={'Insured Shipping'} value={0}/>
             <StatisticRow text={'Bezel authentication'} value={0}/>
             <Divider/>
@@ -189,7 +192,9 @@ const ModalData = (props: ModalProps) => {
                 <Col
                     span={12}
                 >
-                    <RightPart/>
+                    <RightPart
+                        orderData={props.orderData}
+                    />
                 </Col>
             </Row>
         </div>
