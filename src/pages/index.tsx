@@ -87,15 +87,18 @@ const RoundContainer = <T extends RoundContainerProps>(props: React.PropsWithChi
     )
 }
 
-const Money = (props: {
-    value: number
-}) => {
+interface MoneyProps {
+    value: number | undefined;
+    color?: string;
+}
+
+const Money = (props: MoneyProps) => {
     return (
         <Statistic
-            prefix={<Text>$</Text>}
+            prefix={<Text style={{color:props.color}}>$</Text>}
             precision={2}
             value={props.value}
-            valueStyle={{fontSize: '14px'}}
+            valueStyle={{fontSize: '14px', color:props.color}}
         />
     )
 }
@@ -104,24 +107,25 @@ interface StatisticRowProps {
     text: string;
     value: number | undefined;
     placeholder?: string;
+    color?: string;
 }
 
-const StatisticRow = ({text, value=99999, placeholder}: StatisticRowProps) => {
+const StatisticRow = ({value=99999, ...props}: StatisticRowProps) => {
     return (
         <Row
             justify={'space-between'}
             style={{marginBottom: '8px'}}
         >
             <Col>
-                <Text>
-                    {text}
+                <Text style={{color:props.color}}>
+                    {props.text}
                 </Text>
             </Col>
             <Col>
                 {value !== 0 ? (
-                    <Money value={value}/>
+                    <Money color={props.color} value={value}/>
                 ) : (
-                    <Text>{placeholder}</Text>
+                    <Text style={{color:props.color}}>{props.placeholder}</Text>
                 )}
             </Col>
         </Row>
@@ -147,10 +151,10 @@ const RightPart = ({orderData, ...props}: RightPartProps) => {
                     <Space
                         direction={'vertical'}
                     >
-                        <Text>
+                        <Text style={{fontSize:'20px'}}>
                             {orderData?.brandName} {orderData?.modelName}
                         </Text>
-                        <Text>
+                        <Text type={'secondary'}>
                             {orderData?.condition} / {orderData?.manufactureYear}
                         </Text>
                     </Space>
@@ -166,7 +170,11 @@ const RightPart = ({orderData, ...props}: RightPartProps) => {
                 </Col>
             </Row>
             <Divider/>
-            <StatisticRow text={"Selling Price"} value={orderData?.salePriceCents && orderData.salePriceCents / 100}/>
+            <StatisticRow
+                text={"Selling Price"}
+                value={orderData?.salePriceCents && orderData.salePriceCents / 100}
+                color={'#788681'}
+            />
             <StatisticRow
                 text={`Level 1 Commission(${(orderData?.commissionRateBips || 0) / 100}%)`}
                 value={
