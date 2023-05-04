@@ -1,4 +1,4 @@
-import {Button, Col, Modal, Row, Image, Typography, Avatar, Divider, Statistic} from 'antd';
+import {Button, Col, Modal, Row, Image, Typography, Avatar, Divider, Statistic, Space} from 'antd';
 import React, {useState} from 'react';
 import {CloseOutlined} from '@ant-design/icons';
 
@@ -29,7 +29,7 @@ const LeftPart = () => {
                 </Col>
             </Row>
             <Row
-                style={{marginBottom: '30px'}}
+                style={{marginBottom: '20%'}}
             >
                 <Col span={24}>
                     <Title level={2}>
@@ -46,14 +46,15 @@ const LeftPart = () => {
                 </Col>
             </Row>
 
-            <Row justify={'center'} gutter={[12, 10]}>
+            <Row>
                 <Col span={24}>
                     <BlockButton
                         type={'primary'}
                         text={'Accept sale'}
                     />
                 </Col>
-
+            </Row>
+            <Row>
                 <Col span={24}>
                     <BlockButton
                         type={'text'}
@@ -62,7 +63,7 @@ const LeftPart = () => {
                 </Col>
             </Row>
         </RoundContainer>
-)
+    )
 }
 
 interface RoundContainerProps {
@@ -102,12 +103,10 @@ const Money = (props: {
 interface StatisticRowProps {
     text: string;
     value: number;
-    placeholder ? : string;
+    placeholder?: string;
 }
 
-
-
-const StatisticRow = (props: StatisticRowProps) =>{
+const StatisticRow = (props: StatisticRowProps) => {
     return (
         <Row justify={'space-between'}>
             <Col>
@@ -139,35 +138,35 @@ const RightPart = () => {
             <Divider/>
             <Row>
                 <Col span={18}>
-                    <Row>
+                    <Space
+                        direction={'vertical'}
+                    >
                         <Text>
-                            Brand name
+                            Patek Philippe
                         </Text>
-                    </Row>
-                    <Row>
                         <Text>
-                            Condition / Year
+                            NEW / 1900
                         </Text>
-                    </Row>
+                    </Space>
                 </Col>
                 <Col span={4}>
                     <Avatar
                         alt={'image'}
                         shape={'square'}
-                        size={80}
+                        size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
                         draggable={false}
                         src={'https://getbezel.mo.cloudinary.net/production/32616290-d113-4a7b-9a07-53734b746e0c.png?tx=f_auto,c_limit,w_1080,q_auto'}
                     />
                 </Col>
             </Row>
-                    <Divider/>
+            <Divider/>
             <StatisticRow text={"Selling Price"} value={1777777945}/>
             <StatisticRow text={"Level 1 Commision(6.5%)"} value={1556.75}/>
 
             <StatisticRow text={'Seller fee'} value={15}/>
             <StatisticRow text={'Insured Shipping'} value={0}/>
             <StatisticRow text={'Bezel authentication'} value={0}/>
-                    <Divider/>
+            <Divider/>
             <StatisticRow text={'Earnings'} value={22378.25}/>
 
         </RoundContainer>
@@ -192,7 +191,7 @@ export default function Home() {
     };
 
     return (
-        <main
+        <div
         >
             <Button type='primary' onClick={showModal}>
                 Open Modal with customized button props
@@ -231,6 +230,6 @@ export default function Home() {
                     </Col>
                 </Row>
             </Modal>
-        </main>
+        </div>
     )
 }
