@@ -114,7 +114,7 @@ const StatisticRow = ({value=99999, ...props}: StatisticRowProps) => {
     return (
         <Row
             justify={'space-between'}
-            style={{marginBottom: '8px'}}
+            style={{marginBottom: '5px'}}
         >
             <Col>
                 <Text style={{color:props.color}}>
@@ -144,6 +144,7 @@ const RightPart = ({orderData, ...props}: RightPartProps) => {
     return (
         <RoundContainer
             backgroundColor={"#F6F4F1"}
+            style={{paddingLeft: '30px', paddingRight: '30px'}}
         >
             <Divider/>
             <Row>
@@ -169,25 +170,43 @@ const RightPart = ({orderData, ...props}: RightPartProps) => {
                     />
                 </Col>
             </Row>
-            <Divider/>
-            <StatisticRow
-                text={"Selling Price"}
-                value={orderData?.salePriceCents && orderData.salePriceCents / 100}
-                color={'#788681'}
-            />
+            <Divider style={{margin:'16px 0px'}}/>
+            <Row
+                justify={'space-between'}
+                style={{marginBottom: '5px'}}
+            >
+                <Col>
+                    <Text>
+                        Selling Price
+                    </Text>
+                </Col>
+                <Col>
+                    {orderData?.salePriceCents && orderData.salePriceCents / 100 !== 0 ? (
+                        <Money color={'#3F7D6A'} value={orderData.salePriceCents / 100}/>
+                    ) : (
+                        <Text style={{color:'#3F7D6A'}}>lod</Text>
+                    )}
+                </Col>
+            </Row>
             <StatisticRow
                 text={`Level 1 Commission(${(orderData?.commissionRateBips || 0) / 100}%)`}
                 value={
                     orderData?.salePriceCents && orderData?.commissionRateBips &&
                     ((orderData.salePriceCents/100 || 0) * (orderData.commissionRateBips/10000 || 0))
                 }
+                color={'#788681'}
+
             />
 
-            <StatisticRow text={'Seller fee'} value={orderData?.sellerFeeCents && orderData.sellerFeeCents / 100}/>
-            <StatisticRow text={'Insured Shipping'} value={orderData?.insuredShipping || 0}/>
-            <StatisticRow text={'Bezel authentication'} value={orderData?.authentication  || 0}/>
-            <Divider/>
+            <StatisticRow text={'Seller fee'}
+                          value={orderData?.sellerFeeCents && orderData.sellerFeeCents / 100} color={'#788681'}/>
+            <StatisticRow text={'Insured Shipping'}
+                          value={orderData?.insuredShipping || 0} color={'#788681'}/>
+            <StatisticRow text={'Bezel authentication'}
+                          value={orderData?.authentication  || 0} color={'#3F7D6A'}/>
+            <Divider style={{marginBottom:'16px'}}/>
             <StatisticRow
+                color={'#223932'}
                 text={'Earnings'}
                 value={
                     orderData?.salePriceCents && orderData?.commissionRateBips && orderData?.sellerFeeCents &&
