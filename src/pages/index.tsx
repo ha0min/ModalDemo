@@ -6,6 +6,7 @@ import useSWRMutation from "swr/mutation";
 import {useOrder} from "@/utils/common";
 import {RoundContainer} from "@/components/common/round-container";
 import {StatisticRow} from "@/components/common/statistic-row";
+import {Money} from "@/components/common/money";
 
 const {Title, Paragraph, Text} = Typography;
 
@@ -66,23 +67,6 @@ const LeftPart = () => {
                 </Col>
             </Row>
         </RoundContainer>
-    )
-}
-
-
-interface MoneyProps {
-    value: number | undefined;
-    color?: string;
-}
-
-const Money = (props: MoneyProps) => {
-    return (
-        <Statistic
-            prefix={<Text style={{color:props.color}}>$</Text>}
-            precision={2}
-            value={props.value}
-            valueStyle={{fontSize: '14px', color:props.color}}
-        />
     )
 }
 
