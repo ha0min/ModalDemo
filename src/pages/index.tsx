@@ -5,6 +5,7 @@ import {useDecision, useOrder} from "@/utils/common";
 import {OrderData} from "@/compiler/types";
 import {OrderModal} from "@/components/order-modal";
 import {Typography} from "antd";
+import {primaryColor, secondaryColor} from "@/styles/colors";
 
 const {Title} = Typography;
 
@@ -107,14 +108,15 @@ export default function Home() {
         <ConfigProvider
             theme={{
                 token: {
-                    colorPrimary: '#1a3a32',
+                    colorPrimary: primaryColor,
+                    colorTextSecondary: secondaryColor,
                 },
             }}
         >
             <Layout className="layout">
                 <Header
                     style={{
-                        backgroundColor: '#1a3a32',
+                        backgroundColor: primaryColor,
                         }}
                 >
                     <Title level={3} style={{color:'white'}}>Modal Demo</Title>

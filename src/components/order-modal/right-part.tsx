@@ -5,6 +5,7 @@ import {Avatar, Col, Divider, Row, Space} from "antd";
 import {Money} from "@/components/common/money";
 import {StatisticRow} from "@/components/common/statistic-row";
 import {OrderData} from "@/compiler/types";
+import {highlightColor, primaryColor, secondaryColor} from "@/styles/colors";
 
 const {Text} = Typography;
 interface RightPartProps {
@@ -53,9 +54,9 @@ export const RightPart = ({orderData, ...props}: RightPartProps) => {
                 </Col>
                 <Col>
                     {orderData?.salePriceCents && orderData.salePriceCents / 100 !== 0 ? (
-                        <Money color={'#3F7D6A'} value={orderData.salePriceCents / 100}/>
+                        <Money color={highlightColor} value={orderData.salePriceCents / 100}/>
                     ) : (
-                        <Text style={{color:'#3F7D6A'}}>lod</Text>
+                        <Text style={{color:highlightColor}}>error</Text>
                     )}
                 </Col>
             </Row>
@@ -65,19 +66,19 @@ export const RightPart = ({orderData, ...props}: RightPartProps) => {
                     orderData?.salePriceCents && orderData?.commissionRateBips &&
                     ((orderData.salePriceCents/100 || 0) * (orderData.commissionRateBips/10000 || 0))
                 }
-                color={'#788681'}
+                color={secondaryColor}
 
             />
 
             <StatisticRow text={'Seller fee'}
-                          value={orderData?.sellerFeeCents && orderData.sellerFeeCents / 100} color={'#788681'}/>
+                          value={orderData?.sellerFeeCents && orderData.sellerFeeCents / 100} color={secondaryColor}/>
             <StatisticRow text={'Insured Shipping'}
-                          value={orderData?.insuredShipping || 0} color={'#788681'}/>
+                          value={orderData?.insuredShipping || 0} color={secondaryColor}/>
             <StatisticRow text={'Bezel authentication'}
-                          value={orderData?.authentication  || 0} color={'#3F7D6A'}/>
+                          value={orderData?.authentication  || 0} color={highlightColor}/>
             <Divider style={{marginBottom:'16px'}}/>
             <StatisticRow
-                color={'#223932'}
+                color={primaryColor}
                 text={'Earnings'}
                 value={
                     orderData?.salePriceCents && orderData?.commissionRateBips && orderData?.sellerFeeCents &&

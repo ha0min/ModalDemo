@@ -17,7 +17,7 @@ export const LeftPart = (props: LeftPartProps) => {
         <RoundContainer>
             <Row>
                 <Col span={24}>
-                    <Text>CONGRATS!</Text>
+                    <Text type={'secondary'} style={{fontSize:'18px'}}>CONGRATS!</Text>
                 </Col>
             </Row>
             <Row
