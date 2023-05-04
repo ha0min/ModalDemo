@@ -4,6 +4,7 @@ import {CloseOutlined} from '@ant-design/icons';
 import useSWR from "swr";
 import useSWRMutation from "swr/mutation";
 import {useOrder} from "@/utils/common";
+import {RoundContainer} from "@/components/common/round-container";
 
 const {Title, Paragraph, Text} = Typography;
 
@@ -67,26 +68,6 @@ const LeftPart = () => {
     )
 }
 
-interface RoundContainerProps {
-    backgroundColor?: string;
-    style?: React.CSSProperties;
-}
-
-const RoundContainer = <T extends RoundContainerProps>(props: React.PropsWithChildren<T>) => {
-    const containerStyle = {
-        padding: '20px 14px 20px 14px',
-        margin: '0px 10px',
-        borderRadius: '18px',
-        backgroundColor: props.backgroundColor || 'transparent',
-        ...props.style
-    };
-
-    return (
-        <div className="round-container" style={containerStyle}>
-            {props.children}
-        </div>
-    )
-}
 
 interface MoneyProps {
     value: number | undefined;
