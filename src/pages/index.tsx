@@ -1,6 +1,8 @@
 import {Button, Col, Modal, Row, Typography, Avatar, Divider, Statistic, Space, Skeleton} from 'antd';
 import React, {useState} from 'react';
 import {CloseOutlined} from '@ant-design/icons';
+import useSWR from "swr";
+import useSWRMutation from "swr/mutation";
 
 const {Title, Paragraph, Text} = Typography;
 
@@ -19,8 +21,6 @@ const BlockButton = (props: any) => {
 }
 
 const LeftPart = () => {
-
-
     return (
         <RoundContainer>
             <Row>
@@ -129,8 +129,8 @@ StatisticRow.defaultProps = {
     placeholder: "Free",
 };
 
-const RightPart = () => {
 
+const RightPart = () => {
     return (
         <RoundContainer
             backgroundColor={"#F6F4F1"}
@@ -208,18 +208,60 @@ const ModalData = (props: ModalProps) => {
     )
 }
 
+interface OrderProps {
+    listing: {
+        model: {
+            brand: {
+                displayName: string;
+            };
+            displayName: string;
+        };
+        manufactureYear: number;
+        condition: string;
+        images: {
+            image: {
+                url: string;
+            };
+        }[];
+    };
+    salePriceCents: number;
+    commissionRateBips: number;
+    sellerFeeCents: number;
+    payoutAmountCents: number;
+}
+
+const useOrder = () => {
+    const {data, error, isMutating, trigger} = useSWRMutation(
+        `https://eb863a74-7a4e-4daf-9540-d2db8470c18e.mock.pstmn.io/marketplace/orders/`,
+        fetcher,
+    );
+
+    return {
+        order: data,
+        isMutating,
+        isError: error,
+        trigger
+    }
+}
+
+const fetcher = (url: string, {arg}: { arg: { id: string } }) => {
+    console.log(url);
+    console.log(arg);
+    console.log(url + arg?.id);
+    return fetch(url + arg?.id).then((res) => {
+        return res.json()
+    })
+}
+
 export default function Home() {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState<any>(null);
 
-    const loadData = () => {
-        setLoading(true);
-        setTimeout(() => {
+    const {order, isMutating, isError, trigger} = useOrder();
 
-            setData({});
-            setLoading(false);
-        }, 3000);
+    const loadData = () => {
+
     }
 
     const showModal = () => {
@@ -252,7 +294,7 @@ export default function Home() {
                 okButtonProps={{disabled: true}}
                 cancelButtonProps={{disabled: true}}
             >
-                <Skeleton active={true} loading={loading}>
+                <Skeleton active={true} loading={isMutating}>
                     <ModalData handleCancel={handleCancel}/>
                 </Skeleton>
             </Modal>
