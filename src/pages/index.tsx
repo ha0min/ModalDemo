@@ -7,22 +7,10 @@ import {useOrder} from "@/utils/common";
 import {RoundContainer} from "@/components/common/round-container";
 import {StatisticRow} from "@/components/common/statistic-row";
 import {Money} from "@/components/common/money";
+import {BlockButton} from "@/components/common/block-button";
 
 const {Title, Paragraph, Text} = Typography;
 
-const BlockButton = (props: any) => {
-    return (
-        <Button
-            style={{height: '56px', borderRadius: '18px'}}
-            type={props?.type}
-            block={true}
-            onClick={props?.onClick}
-            {...props}
-        >
-            {props.text}
-        </Button>
-    )
-}
 
 const LeftPart = () => {
     return (
