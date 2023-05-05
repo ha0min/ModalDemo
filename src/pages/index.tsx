@@ -73,6 +73,8 @@ const DataLoadEveryTimeModal = () => {
         decisionTrigger({id: inputId, decision: 'accept'})
             .then((res) => {
                     console.log('res', res);
+                    orderReset();
+
                     setIsDecisionPost(true);
                     message.success('Order accepted successfully.');
                 }
@@ -94,6 +96,8 @@ const DataLoadEveryTimeModal = () => {
         decisionTrigger({id: inputId, decision: 'decline'})
             .then((res) => {
                     console.log('res', res);
+                    orderReset();
+
                     setIsDecisionPost(true);
                     message.success('Order declined successfully.');
                 }
@@ -203,6 +207,7 @@ const DataPreloadModal = () => {
             .then((res) => {
                     console.log('res', res);
                     setIsDecisionPost(true);
+                    orderReset();
                     message.success('Order accepted successfully.');
                 }
             )
@@ -223,6 +228,7 @@ const DataPreloadModal = () => {
         decisionTrigger({id: inputId, decision: 'decline'})
             .then((res) => {
                     console.log('res', res);
+                    orderReset();
                     setIsDecisionPost(true);
                     message.success('Order declined successfully.');
                 }
