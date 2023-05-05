@@ -1,4 +1,4 @@
-import {Button, message, ConfigProvider, Layout, Space, Input, Spin, Divider, Row, Col} from 'antd';
+import {message, ConfigProvider, Layout, Space, Input} from 'antd';
 import React, {useEffect, useState} from 'react';
 import {useDecision, useOrder} from "@/utils/common";
 import {OrderData} from "@/compiler/types";
@@ -20,6 +20,7 @@ const DataLoadEveryTimeModal = () => {
     const [isAcceptPosting, setIsAcceptPosting] = useState(false);
     const [isRejectPosting, setIsRejectPosting] = useState(false);
     const [inputId, setInputId] = useState('');
+    const [isDecisionPost, setIsDecisionPost] = useState(false);
 
     const loadData = () => {
         orderTrigger({id: inputId})
@@ -72,7 +73,7 @@ const DataLoadEveryTimeModal = () => {
         decisionTrigger({id: inputId, decision: 'accept'})
             .then((res) => {
                     console.log('res', res);
-
+                    setIsDecisionPost(true);
                     message.success('Order accepted successfully.');
                 }
             )
@@ -93,6 +94,7 @@ const DataLoadEveryTimeModal = () => {
         decisionTrigger({id: inputId, decision: 'decline'})
             .then((res) => {
                     console.log('res', res);
+                    setIsDecisionPost(true);
                     message.success('Order declined successfully.');
                 }
             )
@@ -114,11 +116,15 @@ const DataLoadEveryTimeModal = () => {
                 <Input
                     placeholder="Basic usage"
                     defaultValue={'123'}
-                    onChange={(e) => setInputId(e.target.value)}
+                    onChange={(e) => {
+                        setInputId(e.target.value);
+                        setIsDecisionPost(false);
+                    }}
                 />
                 <BlockButton
                     type='primary'
                     onClick={showModal}
+                    disabled={isDecisionPost}
                     text={'Open Modal'}
                 />
             </Space>
@@ -145,6 +151,7 @@ const DataPreloadModal = () => {
     const {isDecisionMutating, decisionTrigger, decisionReset} = useDecision();
     const [isAcceptPosting, setIsAcceptPosting] = useState(false);
     const [isRejectPosting, setIsRejectPosting] = useState(false);
+    const [isDecisionPost, setIsDecisionPost] = useState(false);
 
     const inputId = '123';
     const loadData = () => {
@@ -195,7 +202,7 @@ const DataPreloadModal = () => {
         decisionTrigger({id: inputId, decision: 'accept'})
             .then((res) => {
                     console.log('res', res);
-
+                    setIsDecisionPost(true);
                     message.success('Order accepted successfully.');
                 }
             )
@@ -216,6 +223,7 @@ const DataPreloadModal = () => {
         decisionTrigger({id: inputId, decision: 'decline'})
             .then((res) => {
                     console.log('res', res);
+                    setIsDecisionPost(true);
                     message.success('Order declined successfully.');
                 }
             )
@@ -239,6 +247,7 @@ const DataPreloadModal = () => {
                 <Text>Preload the order id: 123</Text>
 
                 <BlockButton
+                    disabled={isDecisionPost}
                     type='primary'
                     onClick={showModal}
                     text={'Open Data Preloaded Modal'}
@@ -285,10 +294,9 @@ export default function Home() {
                     justifyContent: 'center',
                     alignItems: 'center',
                 }}>
-                    <ProCard gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+                    <ProCard gutter={{xs: 8, sm: 16, md: 24, lg: 32}}>
                         <ProCard title={'Data Preload Modal'} colSpan={12} layout="center" bordered>
                             <DataPreloadModal/>
-
                         </ProCard>
                         <ProCard colSpan={12} title={'Data Load Everytime Modal'} layout="center" bordered>
                             <DataLoadEveryTimeModal/>
