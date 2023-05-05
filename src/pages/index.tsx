@@ -253,11 +253,11 @@ const DataPreloadModal = () => {
                 <Text>Preload the order id: 123</Text>
 
                 <BlockButton
-                    disabled={isDecisionPost}
+                    disabled={isDecisionPost || isOrderMutating}
                     type='primary'
                     onClick={showModal}
                     text={'Open Data Preloaded Modal'}
-                    disable={isOrderMutating}
+                    loading={isOrderMutating}
                 />
             </Space>
             <OrderModal

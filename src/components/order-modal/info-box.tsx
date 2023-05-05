@@ -80,12 +80,7 @@ export const InfoBox = ({orderData, ...props}: InfoBoxProps) => {
                 color={primaryColor}
                 text={'Earnings'}
                 value={
-                    orderData?.salePriceCents && orderData?.commissionRateBips && orderData?.sellerFeeCents &&
-                    orderData.salePriceCents / 100 -
-                    (orderData.salePriceCents / 100 * orderData.commissionRateBips / 10000) -
-                    orderData.sellerFeeCents / 100
-                    - (orderData.insuredShipping || 0)
-                    - (orderData.authentication || 0)
+                    orderData?.payoutAmountCents && orderData.payoutAmountCents / 100 || 9999
                 }
             />
 
