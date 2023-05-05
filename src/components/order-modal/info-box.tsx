@@ -8,11 +8,11 @@ import {OrderData} from "@/compiler/types";
 import {highlightColor, primaryColor, secondaryColor} from "@/styles/colors";
 
 const {Text} = Typography;
-interface RightPartProps {
+interface InfoBoxProps {
     orderData: OrderData | null;
 }
 
-export const RightPart = ({orderData, ...props}: RightPartProps) => {
+export const InfoBox = ({orderData, ...props}: InfoBoxProps) => {
     return (
         <RoundContainer
             backgroundColor={"#F6F4F1"}

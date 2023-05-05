@@ -1,8 +1,8 @@
 import {Alert, Button, Col, Modal, Row, Skeleton, Typography} from "antd";
 import React from "react";
 import {OrderData} from "@/compiler/types";
-import {RightPart} from "@/components/order-modal/right-part";
-import {LeftPart} from "@/components/order-modal/left-part";
+import {InfoBox} from "@/components/order-modal/info-box";
+import {DecisionBox} from "@/components/order-modal/decision-box";
 import {CloseOutlined} from "@ant-design/icons";
 
 
@@ -29,7 +29,7 @@ const OrderModalContent = (props: OrderModalContentProps) => {
                 <Col
                     xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}
                 >
-                    <LeftPart
+                    <DecisionBox
                         handleOk={props.onAcceptClick}
                         handleCancel={props.onDeclineClick}
                         isAcceptPosting={props.isAcceptPosting}
@@ -39,7 +39,7 @@ const OrderModalContent = (props: OrderModalContentProps) => {
                 <Col
                     xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}
                 >
-                    <RightPart
+                    <InfoBox
                         orderData={props.orderData}
                     />
                 </Col>

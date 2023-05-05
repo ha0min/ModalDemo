@@ -5,14 +5,14 @@ import React from "react";
 
 const {Title, Paragraph, Text} = Typography;
 
-interface LeftPartProps {
+interface DecisionBoxProps {
     handleOk: (e: React.MouseEvent<HTMLElement>) => void,
     handleCancel: (e: React.MouseEvent<HTMLElement>) => void,
     isAcceptPosting: boolean,
     isRejectPosting: boolean,
 }
 
-export const LeftPart = (props: LeftPartProps) => {
+export const DecisionBox = (props: DecisionBoxProps) => {
     return (
         <RoundContainer>
             <Row>
